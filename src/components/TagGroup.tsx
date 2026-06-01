@@ -27,10 +27,10 @@ export function TagGroup({
           return (
             <button
               className={[
-                "terminal-button min-h-10 px-3 py-2 text-left text-sm font-semibold transition",
+                "recruitment-tag-button min-h-10 px-3 py-2 text-left text-sm font-semibold transition",
                 "disabled:cursor-not-allowed disabled:opacity-35",
                 isSelected
-                  ? "terminal-button-selected"
+                  ? "recruitment-tag-button-selected"
                   : "",
                 isRare && !isSelected
                   ? "border-orange-500/45 text-orange-800 dark:border-orange-400/42 dark:text-orange-200"

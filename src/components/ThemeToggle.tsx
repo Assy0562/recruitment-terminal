@@ -49,12 +49,12 @@ export function ThemeToggle() {
       type="button"
     >
       <span className="text-zinc-500 dark:text-zinc-500">Mode</span>
-      <span className="grid grid-cols-2 border border-zinc-400/50 bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-950">
+      <span className="grid grid-cols-2 border border-zinc-400/50 bg-zinc-200/60 dark:border-zinc-700 dark:bg-zinc-950/70">
         <span
           className={[
             "px-2 py-1 transition",
             isDark
-              ? "bg-cyan-700 text-white dark:bg-cyan-300 dark:text-zinc-950"
+              ? "bg-zinc-800 text-white dark:bg-zinc-200 dark:text-zinc-950"
               : "text-zinc-500 dark:text-zinc-600"
           ].join(" ")}
         >
@@ -65,7 +65,7 @@ export function ThemeToggle() {
             "border-l border-zinc-400/50 px-2 py-1 transition dark:border-zinc-700",
             isDark
               ? "text-zinc-500 dark:text-zinc-600"
-              : "bg-cyan-700 text-white dark:bg-cyan-300 dark:text-zinc-950"
+              : "bg-zinc-800 text-white dark:bg-zinc-200 dark:text-zinc-950"
           ].join(" ")}
         >
           L

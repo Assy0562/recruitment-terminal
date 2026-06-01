@@ -23,7 +23,7 @@ export function OperatorCard({ operator }: OperatorCardProps) {
 
   return (
     <Link
-      className="group relative block overflow-hidden rounded-[2px] border border-zinc-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(244,244,245,0.9))] p-3 transition hover:border-cyan-700/45 hover:shadow-[0_0_16px_rgba(8,145,178,0.1)] focus:outline-none focus-visible:border-cyan-700 focus-visible:ring-2 focus-visible:ring-cyan-700/20 dark:border-zinc-800 dark:bg-[linear-gradient(180deg,rgba(24,24,27,0.96),rgba(9,9,11,0.98))] dark:hover:border-cyan-300/40 dark:hover:shadow-[0_0_18px_rgba(103,232,249,0.09)] dark:focus-visible:border-cyan-300 dark:focus-visible:ring-cyan-300/25"
+      className="group relative block overflow-hidden rounded-[2px] border border-zinc-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(244,244,245,0.9))] p-3 transition hover:border-cyan-700/45 hover:shadow-[0_10px_18px_-16px_rgba(8,145,178,0.42)] focus:outline-none focus-visible:border-cyan-700 focus-visible:ring-2 focus-visible:ring-cyan-700/20 dark:border-zinc-800 dark:bg-[linear-gradient(180deg,rgba(24,24,27,0.96),rgba(9,9,11,0.98))] dark:hover:border-cyan-300/40 dark:hover:shadow-[0_12px_20px_-16px_rgba(103,232,249,0.36)] dark:focus-visible:border-cyan-300 dark:focus-visible:ring-cyan-300/25"
       href={`/operators/${operator.id}`}
     >
       <span
@@ -41,7 +41,7 @@ export function OperatorCard({ operator }: OperatorCardProps) {
         }}
       />
 
-      <div className="relative flex items-start gap-3">
+      <div className="relative flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-3">
           <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-[2px] border border-zinc-300 bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900">
             <Image
@@ -53,14 +53,8 @@ export function OperatorCard({ operator }: OperatorCardProps) {
             />
           </div>
           <div className="min-w-0">
-            <p
-              className={
-                isHighRarity
-                  ? "text-sm font-bold text-amber-600 dark:text-amber-300"
-                  : "text-sm font-bold text-cyan-700 dark:text-cyan-300"
-              }
-            >
-              {getRarityLabel(operator.rarity)}
+            <p className="text-[0.62rem] font-black uppercase tracking-[0.18em] text-zinc-400 dark:text-zinc-600">
+              Operator File
             </p>
             <h3 className="mt-1 truncate text-base font-bold text-zinc-950 dark:text-zinc-50">
               {operator.name}
@@ -70,6 +64,16 @@ export function OperatorCard({ operator }: OperatorCardProps) {
             </p>
           </div>
         </div>
+        <p
+          className={[
+            "shrink-0 text-right text-sm font-black leading-none",
+            isHighRarity
+              ? "text-amber-600 dark:text-amber-300"
+              : "text-cyan-700 dark:text-cyan-300"
+          ].join(" ")}
+        >
+          {getRarityLabel(operator.rarity)}
+        </p>
       </div>
 
       <div className="relative mt-3 flex flex-wrap gap-1.5">
