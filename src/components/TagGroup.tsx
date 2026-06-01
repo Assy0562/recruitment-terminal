@@ -14,8 +14,8 @@ export function TagGroup({
   onToggleTag
 }: TagGroupProps) {
   return (
-    <section className="border border-zinc-200 bg-white/80 p-3 dark:border-zinc-800 dark:bg-zinc-950/75">
-      <h2 className="mb-3 border-l-2 border-orange-500 pl-2 text-sm font-bold text-zinc-900 dark:border-orange-400 dark:text-zinc-100">
+    <section className="terminal-panel terminal-panel-plain p-3">
+      <h2 className="mb-3 border-l-2 border-orange-500 pl-2 text-sm font-black text-zinc-950 dark:border-orange-400 dark:text-zinc-100">
         {category}
       </h2>
       <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 lg:grid-cols-2">

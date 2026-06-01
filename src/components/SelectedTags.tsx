@@ -12,11 +12,15 @@ export function SelectedTags({
   onRemoveTag
 }: SelectedTagsProps) {
   return (
-    <section className="border border-zinc-200 bg-white/90 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.08)] dark:border-zinc-800 dark:bg-zinc-900 dark:shadow-none">
-      <div className="flex items-center justify-between gap-3">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-zinc-900 dark:text-zinc-100">
-          Selected
-        </h2>
+    <section className="terminal-panel p-4">
+      <span className="terminal-watermark">Tags</span>
+      <div className="flex items-start justify-between gap-3 border-b pb-3 terminal-divider">
+        <div>
+          <p className="terminal-kicker">Operator File</p>
+          <h2 className="mt-2 text-lg font-black text-zinc-950 dark:text-zinc-50">
+            {"\u9078\u629e\u4e2d\u30bf\u30b0"}
+          </h2>
+        </div>
         <button
           className="terminal-button terminal-button-warn px-3 py-1.5 text-xs font-semibold tracking-[0.08em] transition disabled:cursor-not-allowed disabled:opacity-40"
           disabled={selectedTags.length === 0}
@@ -26,13 +30,13 @@ export function SelectedTags({
           RESET
         </button>
       </div>
-      <p className="mt-2 text-xs text-zinc-500">
+      <p className="mt-3 text-xs font-semibold text-zinc-500">
         {selectedTags.length} / {maxSelectedTags}
       </p>
 
       <div className="mt-3 flex min-h-10 flex-wrap gap-2">
         {selectedTags.length === 0 ? (
-          <p className="text-sm text-zinc-500">未選択です。</p>
+          <p className="text-sm text-zinc-500">{"\u672a\u9078\u629e\u3067\u3059\u3002"}</p>
         ) : (
           selectedTags.map((tag) => (
             <button
@@ -41,7 +45,7 @@ export function SelectedTags({
               onClick={() => onRemoveTag(tag)}
               type="button"
             >
-              {tag} ×
+              {tag} x
             </button>
           ))
         )}

@@ -61,7 +61,11 @@ export default async function OperatorDetailPage({
           <div className="grid h-full lg:grid-cols-[42%_1fr]">
             <section className="relative min-h-[460px] overflow-hidden border-b border-zinc-200 bg-zinc-100 lg:h-full lg:min-h-0 lg:border-b-0 lg:border-r dark:border-zinc-800 dark:bg-zinc-950">
               <div className="absolute inset-0 bg-[linear-gradient(140deg,rgba(255,255,255,0.74),rgba(226,232,240,0.42)_42%,rgba(251,146,60,0.08)),linear-gradient(90deg,rgba(8,145,178,0.06)_1px,transparent_1px),linear-gradient(rgba(8,145,178,0.06)_1px,transparent_1px)] bg-[length:auto,40px_40px,40px_40px] dark:bg-[linear-gradient(140deg,rgba(24,24,27,0.5),rgba(9,9,11,0.84)_44%,rgba(251,146,60,0.08)),linear-gradient(90deg,rgba(103,232,249,0.035)_1px,transparent_1px),linear-gradient(rgba(103,232,249,0.035)_1px,transparent_1px)]" />
-              <div className="absolute inset-x-0 top-0 h-52 bg-[radial-gradient(circle,rgba(8,145,178,0.24)_1.15px,transparent_1.35px)] bg-[length:10px_10px] opacity-70 [mask-image:linear-gradient(to_bottom,black_0%,rgba(0,0,0,0.58)_44%,transparent_100%)] dark:bg-[radial-gradient(circle,rgba(103,232,249,0.28)_1.15px,transparent_1.35px)] dark:opacity-45" />
+              <div className="absolute inset-x-8 top-10 h-px bg-zinc-400/25 dark:bg-zinc-600/45" />
+              <div className="absolute right-[-2rem] top-12 text-6xl font-black uppercase tracking-[0.08em] text-zinc-950/[0.045] dark:text-white/[0.035] sm:text-7xl lg:text-8xl">
+                Operator File
+              </div>
+              <div className="absolute inset-y-0 right-[18%] w-8 -skew-x-[18deg] bg-orange-500/[0.06] dark:bg-orange-400/[0.055]" />
               <div className="absolute inset-x-8 top-8 h-px bg-cyan-700/15 dark:bg-cyan-300/15" />
               <div className="absolute inset-y-8 left-8 w-px bg-cyan-700/15 dark:bg-cyan-300/15" />
               <div className="relative h-full min-h-[460px] lg:min-h-0">
