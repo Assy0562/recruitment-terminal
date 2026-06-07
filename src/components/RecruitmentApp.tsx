@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import operatorsData from "@/data/operators.json";
 import tagCategoriesData from "@/data/tags.json";
 import { getTagCombinationCandidates } from "@/lib/recruit";
@@ -12,9 +12,50 @@ import { TagSelector } from "./TagSelector";
 const operators = operatorsData as Operator[];
 const tagCategories = tagCategoriesData as TagCategory[];
 const maxSelectedTags = 5;
+const selectedTagsStorageKey = "recruitment-terminal:selected-tags";
+const validTags = new Set(tagCategories.flatMap((group) => group.tags));
+
+function getStoredSelectedTags(): string[] {
+  try {
+    const storedValue = window.sessionStorage.getItem(selectedTagsStorageKey);
+    if (!storedValue) {
+      return [];
+    }
+
+    const parsedValue = JSON.parse(storedValue);
+    if (!Array.isArray(parsedValue)) {
+      return [];
+    }
+
+    return parsedValue
+      .filter((tag): tag is string => typeof tag === "string" && validTags.has(tag))
+      .slice(0, maxSelectedTags);
+  } catch {
+    return [];
+  }
+}
 
 export function RecruitmentApp() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [hasRestoredSelection, setHasRestoredSelection] = useState(false);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      setSelectedTags(getStoredSelectedTags());
+      setHasRestoredSelection(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!hasRestoredSelection) {
+      return;
+    }
+
+    window.sessionStorage.setItem(
+      selectedTagsStorageKey,
+      JSON.stringify(selectedTags)
+    );
+  }, [hasRestoredSelection, selectedTags]);
 
   const combinationCandidates = useMemo(() => {
     return getTagCombinationCandidates(operators, selectedTags);
