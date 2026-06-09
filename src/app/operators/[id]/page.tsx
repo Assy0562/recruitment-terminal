@@ -1,4 +1,7 @@
 import { Header } from "@/components/Header";
+import { OperatorSdModel } from "@/components/OperatorSdModel";
+import operatorEnglishNamesData from "@/data/operatorEnglishNames.json";
+import operatorRangesData from "@/data/operatorRanges.json";
 import operatorsData from "@/data/operators.json";
 import { getRarityLabel } from "@/lib/recruit";
 import type { Operator, OperatorDetailItem } from "@/types/operator";
@@ -7,12 +10,78 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 const operators = operatorsData as Operator[];
+const operatorEnglishNames = operatorEnglishNamesData as Record<string, string>;
+const operatorRanges = operatorRangesData as unknown as Record<string, RangePattern>;
 
 const labels = {
   back: "\u623b\u308b",
+  attackRange: "\u653b\u6483\u7bc4\u56f2",
+  blockCount: "\u30d6\u30ed\u30c3\u30af\u6570",
   trait: "\u7279\u6027",
   talents: "\u7d20\u8cea",
   skills: "\u30b9\u30ad\u30eb"
+};
+
+const blockCountByBranch: Record<string, string> = {
+  "Ambusher Specialist": "0",
+  "Artilleryman Sniper": "1",
+  "Besieger Sniper": "1",
+  "Blast Caster": "1",
+  "Chain Caster": "1",
+  "Core Caster": "1",
+  "Deadeye Sniper": "1",
+  "Decel Binder Supporter": "1",
+  "Geek Specialist": "1",
+  "Heavyshooter Sniper": "1",
+  "Hexer Supporter": "1",
+  "Marksman Sniper": "1",
+  "Mech-Accord Caster": "1",
+  "Multi-target Medic": "1",
+  "Mystic Caster": "1",
+  "Phalanx Caster": "1",
+  "Physician Medic": "1",
+  "Ritualist Supporter": "1",
+  "Splash Caster": "1",
+  "Spreadshooter Sniper": "1",
+  "Summoner Supporter": "1",
+  "Therapist Medic": "1",
+  "Tactician Vanguard": "1",
+  "Abjurer Supporter": "1",
+  "Arts Fighter Guard": "1",
+  "Charger Vanguard": "1",
+  "Dreadnought Guard": "1",
+  "Duelist Defender": "1",
+  "Executor Specialist": "1",
+  "Fighter Guard": "1",
+  "Soloblade Guard": "1",
+  "Swordmaster Guard": "1",
+  "Centurion Guard": "2",
+  "Hookmaster Specialist": "2",
+  "Instructor Guard": "2",
+  "Lord Guard": "2",
+  "Merchant Specialist": "2",
+  "Pioneer Vanguard": "2",
+  "Push Stroker Specialist": "2",
+  "Standard Bearer Vanguard": "2",
+  "Arts Protector Defender": "3",
+  "Guardian Defender": "3",
+  "Juggernaut Defender": "3",
+  "Protector Defender": "3",
+  "Sentry Protector Defender": "3"
+};
+
+type RangePattern = {
+  columns: number;
+  rows: number;
+  origin?: [number, number];
+  cells: Array<[number, number]>;
+};
+
+const defaultRangePattern: RangePattern = {
+  columns: 2,
+  rows: 1,
+  origin: [0, 0],
+  cells: [[0, 0], [1, 0]]
 };
 
 type OperatorDetailPageProps = {
@@ -45,6 +114,10 @@ export default async function OperatorDetailPage({
   if (!operator) {
     notFound();
   }
+
+  const blockCount = getBlockCount(operator);
+  const operatorEnglishName = operatorEnglishNames[operator.id];
+  const rangePattern = getRangePattern(operator);
 
   return (
     <>
@@ -98,26 +171,52 @@ export default async function OperatorDetailPage({
 
             <section className="relative overflow-visible bg-zinc-100 text-zinc-950 dark:bg-zinc-900 dark:text-zinc-50 lg:h-full lg:overflow-y-auto">
               <div className="relative mx-auto max-w-4xl px-5 py-7 sm:px-8 sm:py-9 lg:px-10">
-                <div>
-                  <p className="text-3xl font-black leading-none tracking-normal text-amber-600 dark:text-amber-300 sm:text-4xl">
-                    {getRarityLabel(operator.rarity)}
-                  </p>
-                  <h1 className="mt-2 text-4xl font-black leading-none tracking-normal text-zinc-950 dark:text-zinc-50 sm:text-5xl">
-                    {operator.name}
-                  </h1>
-                </div>
+                <div className="border-b border-zinc-300/80 pb-6 dark:border-zinc-800">
+                  <div className="grid gap-5 sm:grid-cols-[1fr_auto] sm:items-start">
+                    <div>
+                      <p className="text-3xl font-black leading-none tracking-normal text-amber-600 dark:text-amber-300 sm:text-4xl">
+                        {getRarityLabel(operator.rarity)}
+                      </p>
+                      <h1 className="mt-2 text-4xl font-black leading-none tracking-normal text-zinc-950 dark:text-zinc-50 sm:text-5xl">
+                        {operator.name}
+                      </h1>
+                      {operatorEnglishName ? (
+                        <p className="mt-2 text-xs font-black uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">
+                          {operatorEnglishName}
+                        </p>
+                      ) : null}
 
-                <div className="mt-7 border-l-4 border-orange-500 pl-4 dark:border-orange-400">
-                  <div className="flex items-center gap-3">
-                    <IconTile alt={operator.profession} src={operator.classIconUrl} />
-                    <IconTile alt={operator.branchNameEn} src={operator.branchIconUrl} />
+                      <div className="mt-7 border-l-4 border-orange-500 pl-4 dark:border-orange-400">
+                        <div className="flex items-center gap-3">
+                          <IconTile alt={operator.profession} src={operator.classIconUrl} />
+                          <IconTile alt={operator.branchNameEn} src={operator.branchIconUrl} />
+                        </div>
+                        <p className="mt-3 text-lg font-black text-zinc-950 dark:text-zinc-50">
+                          {operator.profession}
+                        </p>
+                        <p className="mt-1 text-xs font-black uppercase text-zinc-500 dark:text-zinc-400">
+                          {operator.position} / {operator.classNameEn} - {operator.branchNameEn}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col items-start sm:items-end">
+                      <OperatorSdModel
+                        englishName={operatorEnglishName}
+                        operatorName={operator.name}
+                      >
+                        <div className="flex flex-col gap-1.5">
+                          <StatusMetric label="BLOCK" value={blockCount} />
+                          <div className="h-px w-full bg-zinc-300/80 dark:bg-zinc-800" />
+                          <RangePanel
+                            compact
+                            label={labels.attackRange}
+                            pattern={rangePattern}
+                          />
+                        </div>
+                      </OperatorSdModel>
+                    </div>
                   </div>
-                  <p className="mt-3 text-lg font-black text-zinc-950 dark:text-zinc-50">
-                    {operator.profession}
-                  </p>
-                  <p className="mt-1 text-xs font-black uppercase text-zinc-500 dark:text-zinc-400">
-                    {operator.position} / {operator.classNameEn} - {operator.branchNameEn}
-                  </p>
                 </div>
 
                 {operator.trait ? (
@@ -166,6 +265,83 @@ export default async function OperatorDetailPage({
         </article>
       </main>
     </>
+  );
+}
+
+function getBlockCount(operator: Operator): string {
+  const traitMatch = operator.trait.match(/敵を(\d+)体までブロック/);
+  if (traitMatch?.[1]) {
+    return traitMatch[1];
+  }
+
+  return blockCountByBranch[operator.branchNameEn] ?? "-";
+}
+
+function getRangePattern(operator: Operator): RangePattern {
+  return operatorRanges[operator.id] ?? defaultRangePattern;
+}
+
+function StatusMetric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <p className="text-[0.52rem] font-black uppercase tracking-[0.14em] text-zinc-500">
+        {label}
+      </p>
+      <p className="text-xs font-black leading-none text-zinc-950 dark:text-zinc-50">
+        {value}
+      </p>
+    </div>
+  );
+}
+
+function RangePanel({
+  compact = false,
+  label,
+  pattern
+}: {
+  compact?: boolean;
+  label: string;
+  pattern: RangePattern;
+}) {
+  const activeCells = new Set(pattern.cells.map(([column, row]) => `${column}-${row}`));
+  const originCell = pattern.origin ? `${pattern.origin[0]}-${pattern.origin[1]}` : null;
+
+  return (
+    <div className="inline-flex max-w-full flex-col gap-1">
+      <p className="text-[0.48rem] font-black uppercase tracking-[0.1em] text-zinc-500">
+        {label}
+      </p>
+      <div
+        className="grid gap-0.5"
+        style={{
+          gridTemplateColumns: `repeat(${pattern.columns}, ${compact ? 7 : 12}px)`,
+          gridTemplateRows: `repeat(${pattern.rows}, ${compact ? 7 : 12}px)`
+        }}
+      >
+        {Array.from({ length: pattern.columns * pattern.rows }).map((_, index) => {
+          const column = index % pattern.columns;
+          const row = Math.floor(index / pattern.columns);
+          const cellKey = `${column}-${row}`;
+          const isOrigin = originCell === cellKey;
+          const isActive = activeCells.has(cellKey);
+
+          return (
+            <span
+              aria-hidden="true"
+              className={[
+                compact ? "h-[7px] w-[7px] border" : "h-3 w-3 border",
+                isOrigin
+                  ? "border-zinc-500 bg-zinc-700 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35)] dark:border-zinc-100 dark:bg-zinc-100 dark:shadow-none"
+                  : isActive
+                  ? "border-zinc-500 bg-zinc-400/45 dark:border-zinc-500 dark:bg-zinc-500/45"
+                  : "border-transparent"
+              ].join(" ")}
+              key={`${column}-${row}`}
+            />
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
