@@ -96,6 +96,10 @@ npm run build
 npm run lint
 ```
 
+## 学習メモ
+
+- [ファイル構成と役割メモ](docs/file-roles.md)
+
 ## ディレクトリ構成
 
 ```text
