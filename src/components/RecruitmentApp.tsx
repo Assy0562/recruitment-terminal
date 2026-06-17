@@ -15,6 +15,7 @@ const maxSelectedTags = 5;
 const selectedTagsStorageKey = "recruitment-terminal:selected-tags";
 const validTags = new Set(tagCategories.flatMap((group) => group.tags));
 
+// 詳細ページから戻ったときに、選択中タグを復元するための読み込み処理。
 function getStoredSelectedTags(): string[] {
   try {
     const storedValue = window.sessionStorage.getItem(selectedTagsStorageKey);
@@ -39,6 +40,7 @@ export function RecruitmentApp() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [hasRestoredSelection, setHasRestoredSelection] = useState(false);
 
+  // sessionStorageはブラウザでしか使えないため、初回表示後に復元する。
   useEffect(() => {
     queueMicrotask(() => {
       setSelectedTags(getStoredSelectedTags());
@@ -57,6 +59,7 @@ export function RecruitmentApp() {
     );
   }, [hasRestoredSelection, selectedTags]);
 
+  // 選択タグが変わったときだけ候補を再計算し、不要な計算を避ける。
   const combinationCandidates = useMemo(() => {
     return getTagCombinationCandidates(operators, selectedTags);
   }, [selectedTags]);

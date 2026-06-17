@@ -11,6 +11,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // 画面が表示される前にテーマを決めて、ライト/ダーク切り替え時のちらつきを防ぐ。
   const themeScript = `
     (() => {
       try {

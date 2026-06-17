@@ -91,6 +91,7 @@ type OperatorDetailPageProps = {
 };
 
 export function generateStaticParams() {
+  // ローカルJSONの全オペレーター詳細ページをビルド時に静的生成する。
   return operators.map((operator) => ({
     id: operator.id
   }));
@@ -278,6 +279,7 @@ function getBlockCount(operator: Operator): string {
 }
 
 function getRangePattern(operator: Operator): RangePattern {
+  // 攻撃範囲はオペレーターIDごとのJSONを優先し、欠けている場合だけ標準形に戻す。
   return operatorRanges[operator.id] ?? defaultRangePattern;
 }
 
@@ -306,6 +308,7 @@ function RangePanel({
   const activeCells = new Set(pattern.cells.map(([column, row]) => `${column}-${row}`));
   const originCell = pattern.origin ? `${pattern.origin[0]}-${pattern.origin[1]}` : null;
 
+  // originが本人の配置マス、cellsが攻撃可能マス。色を分けて範囲の向きを読みやすくする。
   return (
     <div className="inline-flex max-w-full flex-col gap-1">
       <p className="text-[0.48rem] font-black uppercase tracking-[0.1em] text-zinc-500">

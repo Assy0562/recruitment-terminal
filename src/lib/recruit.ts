@@ -64,6 +64,7 @@ export function getTagCombinationCandidates(
     return [];
   }
 
+  // 公開求人では最大3タグの組み合わせを見るため、選択タグから有効な候補を作る。
   const maxTagCount = Math.min(3, selectedTags.length);
   const tagCombinations = createCombinations(selectedTags, maxTagCount);
 
@@ -90,6 +91,7 @@ export function getTagCombinationCandidates(
     })
     .filter((candidate): candidate is TagCombinationCandidate => candidate !== null)
     .sort((a, b) => {
+      // 高レアが狙える組み合わせを上に出し、求人ツールとしての使いやすさを優先する。
       if (b.minRarity !== a.minRarity) {
         return b.minRarity - a.minRarity;
       }
@@ -102,6 +104,7 @@ export function getTagCombinationCandidates(
     });
 }
 
+// 選択されたタグから、1個・2個・3個の全組み合わせを再帰的に作る。
 function createCombinations(tags: string[], maxTagCount: number): string[][] {
   const combinations: string[][] = [];
 
