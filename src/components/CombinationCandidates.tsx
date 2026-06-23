@@ -1,7 +1,7 @@
 "use client";
 
 import { getRarityLabel, type TagCombinationCandidate } from "@/lib/recruit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { OperatorCard } from "./OperatorCard";
 
 type CombinationCandidatesProps = {
@@ -9,10 +9,90 @@ type CombinationCandidatesProps = {
   selectedTags: string[];
 };
 
+type StoredExpandedCandidates = {
+  selectedTagsKey: string;
+  expandedCandidateIds: string[];
+};
+
+const expandedCandidatesStorageKey =
+  "recruitment-terminal:expanded-candidates";
+
+function createSelectedTagsKey(selectedTags: string[]): string {
+  return selectedTags.join("__");
+}
+
+function getStoredExpandedCandidateIds(selectedTagsKey: string): string[] {
+  try {
+    const storedValue = window.sessionStorage.getItem(
+      expandedCandidatesStorageKey
+    );
+    if (!storedValue) {
+      return [];
+    }
+
+    const parsedValue = JSON.parse(storedValue) as StoredExpandedCandidates;
+    if (
+      parsedValue.selectedTagsKey !== selectedTagsKey ||
+      !Array.isArray(parsedValue.expandedCandidateIds)
+    ) {
+      return [];
+    }
+
+    return parsedValue.expandedCandidateIds.filter(
+      (candidateId): candidateId is string => typeof candidateId === "string"
+    );
+  } catch {
+    return [];
+  }
+}
+
 export function CombinationCandidates({
   candidates,
   selectedTags
 }: CombinationCandidatesProps) {
+  const selectedTagsKey = createSelectedTagsKey(selectedTags);
+  const [expandedCandidateIds, setExpandedCandidateIds] = useState<string[]>(
+    () => {
+      if (selectedTags.length === 0) {
+        return [];
+      }
+
+      return getStoredExpandedCandidateIds(selectedTagsKey);
+    }
+  );
+
+  useEffect(() => {
+    if (selectedTags.length === 0) {
+      window.sessionStorage.removeItem(expandedCandidatesStorageKey);
+      return;
+    }
+
+    const visibleCandidateIds = new Set(
+      candidates.map((candidate) => candidate.id)
+    );
+    const storableExpandedIds = expandedCandidateIds.filter((candidateId) =>
+      visibleCandidateIds.has(candidateId)
+    );
+
+    window.sessionStorage.setItem(
+      expandedCandidatesStorageKey,
+      JSON.stringify({
+        selectedTagsKey,
+        expandedCandidateIds: storableExpandedIds
+      } satisfies StoredExpandedCandidates)
+    );
+  }, [candidates, expandedCandidateIds, selectedTags.length, selectedTagsKey]);
+
+  function toggleCandidate(candidateId: string) {
+    setExpandedCandidateIds((currentCandidateIds) =>
+      currentCandidateIds.includes(candidateId)
+        ? currentCandidateIds.filter((currentCandidateId) => {
+            return currentCandidateId !== candidateId;
+          })
+        : [...currentCandidateIds, candidateId]
+    );
+  }
+
   return (
     <section className="terminal-panel terminal-panel-plain recruitment-console-panel p-4">
       <span className="terminal-watermark">Result</span>
@@ -48,7 +128,12 @@ export function CombinationCandidates({
       ) : (
         <div className="mt-4 grid gap-4">
           {candidates.map((candidate) => (
-            <CandidateCard candidate={candidate} key={candidate.id} />
+            <CandidateCard
+              candidate={candidate}
+              isExpanded={expandedCandidateIds.includes(candidate.id)}
+              key={candidate.id}
+              onToggleExpanded={toggleCandidate}
+            />
           ))}
         </div>
       )}
@@ -57,11 +142,14 @@ export function CombinationCandidates({
 }
 
 function CandidateCard({
-  candidate
+  candidate,
+  isExpanded,
+  onToggleExpanded
 }: {
   candidate: TagCombinationCandidate;
+  isExpanded: boolean;
+  onToggleExpanded: (candidateId: string) => void;
 }) {
-  const [isExpanded, setIsExpanded] = useState(false);
   const isHighValue = candidate.minRarity >= 5;
   const previewOperators = candidate.operators.slice(0, 4);
   const remainingCount = candidate.operators.length - previewOperators.length;
@@ -124,7 +212,7 @@ function CandidateCard({
       {remainingCount > 0 ? (
         <button
           className="terminal-button terminal-button-selected mt-3 w-full px-3 py-2 text-left text-xs font-semibold tracking-[0.08em] transition"
-          onClick={() => setIsExpanded((current) => !current)}
+          onClick={() => onToggleExpanded(candidate.id)}
           type="button"
         >
           {isExpanded

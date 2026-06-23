@@ -99,6 +99,7 @@ npm run lint
 ## 学習メモ
 
 - [ファイル構成と役割メモ](docs/file-roles.md)
+- [AI協業用の現在地メモ](docs/project-status.md)
 
 ## ディレクトリ構成
 

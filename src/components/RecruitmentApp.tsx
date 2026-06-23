@@ -29,11 +29,17 @@ function getStoredSelectedTags(): string[] {
     }
 
     return parsedValue
-      .filter((tag): tag is string => typeof tag === "string" && validTags.has(tag))
+      .filter((tag): tag is string => {
+        return typeof tag === "string" && validTags.has(tag);
+      })
       .slice(0, maxSelectedTags);
   } catch {
     return [];
   }
+}
+
+function createSelectedTagsKey(selectedTags: string[]): string {
+  return selectedTags.join("__");
 }
 
 export function RecruitmentApp() {
@@ -59,6 +65,10 @@ export function RecruitmentApp() {
     );
   }, [hasRestoredSelection, selectedTags]);
 
+  const selectedTagsKey = useMemo(() => {
+    return createSelectedTagsKey(selectedTags);
+  }, [selectedTags]);
+
   // 選択タグが変わったときだけ候補を再計算し、不要な計算を避ける。
   const combinationCandidates = useMemo(() => {
     return getTagCombinationCandidates(operators, selectedTags);
@@ -70,7 +80,7 @@ export function RecruitmentApp() {
         ? currentTags.filter((currentTag) => currentTag !== tag)
         : currentTags.length >= maxSelectedTags
           ? currentTags
-        : [...currentTags, tag]
+          : [...currentTags, tag]
     );
   }
 
@@ -93,10 +103,13 @@ export function RecruitmentApp() {
           onRemoveTag={toggleTag}
           selectedTags={selectedTags}
         />
-        <CombinationCandidates
-          candidates={combinationCandidates}
-          selectedTags={selectedTags}
-        />
+        {hasRestoredSelection ? (
+          <CombinationCandidates
+            candidates={combinationCandidates}
+            key={selectedTagsKey}
+            selectedTags={selectedTags}
+          />
+        ) : null}
       </div>
     </main>
   );

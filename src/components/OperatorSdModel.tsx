@@ -9,15 +9,23 @@ type OperatorSdModelProps = {
   operatorName: string;
 };
 
-export function OperatorSdModel({ children, englishName, operatorName }: OperatorSdModelProps) {
-  const [hasError, setHasError] = useState(false);
-  const sdVideoUrl = useMemo(() => {
-    if (!englishName) {
-      return null;
-    }
+function createSdVideoUrl(englishName?: string): string | null {
+  if (!englishName) {
+    return null;
+  }
 
-    return `https://arknights.wiki.gg/images/${encodeURIComponent(`${englishName}.webm`)}`;
-  }, [englishName]);
+  const fileName = `${englishName}.webm`;
+  return `https://arknights.wiki.gg/images/${encodeURIComponent(fileName)}`;
+}
+
+export function OperatorSdModel({
+  children,
+  englishName,
+  operatorName
+}: OperatorSdModelProps) {
+  const [failedVideoUrl, setFailedVideoUrl] = useState<string | null>(null);
+  const sdVideoUrl = useMemo(() => createSdVideoUrl(englishName), [englishName]);
+  const canShowVideo = sdVideoUrl !== null && failedVideoUrl !== sdVideoUrl;
 
   return (
     <div
@@ -26,14 +34,15 @@ export function OperatorSdModel({ children, englishName, operatorName }: Operato
       role="img"
     >
       <div className="relative h-40 w-40 overflow-hidden">
-        {sdVideoUrl && !hasError ? (
+        {canShowVideo ? (
           <video
             aria-hidden="true"
             autoPlay
             className="absolute inset-0 h-full w-full -translate-y-5 scale-[2.28] object-contain p-2"
+            key={sdVideoUrl}
             loop
             muted
-            onError={() => setHasError(true)}
+            onError={() => setFailedVideoUrl(sdVideoUrl)}
             playsInline
             src={sdVideoUrl}
           />
