@@ -2,8 +2,8 @@ import { ThemeToggle } from "./ThemeToggle";
 
 export function Header() {
   return (
-    <header className="border-b border-zinc-300/80 bg-zinc-100/92 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/94">
-      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+    <header className="border-b border-[#afafaf] bg-[#e4e4e4]/95 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/94">
+      <div className="mx-auto flex max-w-[1500px] flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">
           <p className="text-[0.68rem] font-black uppercase tracking-[0.32em] text-cyan-700 dark:text-cyan-300">
             Recruitment Terminal

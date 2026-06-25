@@ -56,7 +56,7 @@ export function SelectedTags({
         </div>
 
         <div className="flex shrink-0 items-stretch gap-2 sm:justify-end">
-          <div className="grid min-h-9 min-w-20 border border-zinc-300 bg-zinc-50 px-2.5 py-1 text-right shadow-[0_8px_14px_-10px_rgba(15,23,42,0.42)] dark:border-zinc-700 dark:bg-zinc-950/70">
+          <div className="grid min-h-9 min-w-20 border border-[#afafaf] bg-[#f2f2f2] px-2.5 py-1 text-right dark:border-zinc-700 dark:bg-zinc-950/70">
             <p className="text-[0.52rem] font-black uppercase leading-none tracking-[0.16em] text-zinc-500">
               Selected
             </p>

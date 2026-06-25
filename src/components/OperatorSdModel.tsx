@@ -30,7 +30,7 @@ export function OperatorSdModel({
   return (
     <div
       aria-label={`${operatorName} SD`}
-      className="w-40 overflow-hidden border border-zinc-300 bg-zinc-200/55 shadow-[0_10px_22px_rgba(15,23,42,0.08)] dark:border-zinc-800 dark:bg-zinc-950/65 dark:shadow-[0_10px_24px_rgba(0,0,0,0.22)]"
+      className="w-40 overflow-hidden border border-[#afafaf] bg-[#dcdcdc]/70 dark:border-zinc-800 dark:bg-zinc-950/65"
       role="img"
     >
       <div className="relative h-40 w-40 overflow-hidden">
@@ -53,7 +53,7 @@ export function OperatorSdModel({
         )}
       </div>
       {children ? (
-        <div className="border-t border-zinc-300/80 bg-zinc-100/90 px-2 py-2 dark:border-zinc-800 dark:bg-zinc-950/86">
+        <div className="border-t border-[#afafaf] bg-[#f2f2f2]/82 px-2 py-2 dark:border-zinc-800 dark:bg-zinc-950/86">
           {children}
         </div>
       ) : null}

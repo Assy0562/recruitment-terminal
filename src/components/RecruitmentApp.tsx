@@ -89,7 +89,7 @@ export function RecruitmentApp() {
   }
 
   return (
-    <main className="mx-auto grid max-w-7xl gap-4 px-4 py-6 lg:grid-cols-[340px_1fr]">
+    <main className="mx-auto grid max-w-[1500px] gap-4 px-4 py-6 lg:grid-cols-[340px_minmax(0,1fr)]">
       <TagSelector
         maxSelectedTags={maxSelectedTags}
         onToggleTag={toggleTag}

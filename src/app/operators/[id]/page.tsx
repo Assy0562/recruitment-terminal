@@ -131,10 +131,10 @@ export default async function OperatorDetailPage({
           {labels.back}
         </Link>
 
-        <article className="mt-4 overflow-hidden border border-cyan-700/20 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.16)] dark:border-cyan-300/20 dark:bg-zinc-900 dark:shadow-[0_24px_80px_rgba(0,0,0,0.28)] lg:h-[calc(100vh-140px)]">
+        <article className="mt-4 overflow-hidden border border-[#afafaf] bg-[#e4e4e4] shadow-[0_18px_44px_-34px_rgba(15,23,42,0.32)] dark:border-cyan-300/20 dark:bg-zinc-900 dark:shadow-[0_20px_54px_-38px_rgba(0,0,0,0.7)] lg:h-[calc(100vh-140px)]">
           <div className="grid h-full lg:grid-cols-[42%_1fr]">
-            <section className="relative min-h-[460px] overflow-hidden border-b border-zinc-200 bg-zinc-100 lg:h-full lg:min-h-0 lg:border-b-0 lg:border-r dark:border-zinc-800 dark:bg-zinc-950">
-              <div className="absolute inset-0 bg-[linear-gradient(140deg,rgba(255,255,255,0.74),rgba(226,232,240,0.42)_42%,rgba(251,146,60,0.08)),linear-gradient(90deg,rgba(8,145,178,0.06)_1px,transparent_1px),linear-gradient(rgba(8,145,178,0.06)_1px,transparent_1px)] bg-[length:auto,40px_40px,40px_40px] dark:bg-[linear-gradient(140deg,rgba(24,24,27,0.5),rgba(9,9,11,0.84)_44%,rgba(251,146,60,0.08)),linear-gradient(90deg,rgba(103,232,249,0.035)_1px,transparent_1px),linear-gradient(rgba(103,232,249,0.035)_1px,transparent_1px)]" />
+            <section className="relative min-h-[460px] overflow-hidden border-b border-[#afafaf] bg-[#dcdcdc] lg:h-full lg:min-h-0 lg:border-b-0 lg:border-r dark:border-zinc-800 dark:bg-zinc-950">
+              <div className="absolute inset-0 bg-[linear-gradient(140deg,rgba(242,242,242,0.46),rgba(212,212,212,0.34)_42%,rgba(251,146,60,0.08)),linear-gradient(90deg,rgba(8,145,178,0.045)_1px,transparent_1px),linear-gradient(rgba(8,145,178,0.045)_1px,transparent_1px)] bg-[length:auto,40px_40px,40px_40px] dark:bg-[linear-gradient(140deg,rgba(24,24,27,0.5),rgba(9,9,11,0.84)_44%,rgba(251,146,60,0.08)),linear-gradient(90deg,rgba(103,232,249,0.035)_1px,transparent_1px),linear-gradient(rgba(103,232,249,0.035)_1px,transparent_1px)]" />
               <div className="absolute right-[-2rem] top-12 text-6xl font-black uppercase tracking-[0.08em] text-zinc-950/[0.045] dark:text-white/[0.035] sm:text-7xl lg:text-8xl">
                 Operator File
               </div>
@@ -170,9 +170,9 @@ export default async function OperatorDetailPage({
               </div>
             </section>
 
-            <section className="relative overflow-visible bg-zinc-100 text-zinc-950 dark:bg-zinc-900 dark:text-zinc-50 lg:h-full lg:overflow-y-auto">
+            <section className="relative overflow-visible bg-[#e4e4e4] text-zinc-950 dark:bg-zinc-900 dark:text-zinc-50 lg:h-full lg:overflow-y-auto">
               <div className="relative mx-auto max-w-4xl px-5 py-7 sm:px-8 sm:py-9 lg:px-10">
-                <div className="border-b border-zinc-300/80 pb-6 dark:border-zinc-800">
+                <div className="border-b border-[#afafaf] pb-6 dark:border-zinc-800">
                   <div className="grid gap-5 sm:grid-cols-[1fr_auto] sm:items-start">
                     <div>
                       <p className="text-3xl font-black leading-none tracking-normal text-amber-600 dark:text-amber-300 sm:text-4xl">
@@ -208,7 +208,7 @@ export default async function OperatorDetailPage({
                       >
                         <div className="flex flex-col gap-1.5">
                           <StatusMetric label="BLOCK" value={blockCount} />
-                          <div className="h-px w-full bg-zinc-300/80 dark:bg-zinc-800" />
+                          <div className="h-px w-full bg-[#afafaf] dark:bg-zinc-800" />
                           <RangePanel
                             compact
                             label={labels.attackRange}
@@ -370,12 +370,12 @@ function DetailBlock({
   return (
     <div
       className={[
-        "grid gap-3 border-t border-zinc-200 pt-4 dark:border-zinc-800",
+        "grid gap-3 border-t border-[#afafaf] pt-4 dark:border-zinc-800",
         compact ? "grid-cols-[32px_1fr]" : "sm:grid-cols-[64px_1fr]"
       ].join(" ")}
     >
       {item.iconUrl ? (
-        <div className="relative h-14 w-14 overflow-hidden border border-zinc-300 bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-950">
+        <div className="relative h-14 w-14 overflow-hidden border border-[#afafaf] bg-[#f2f2f2] dark:border-zinc-700 dark:bg-zinc-950">
           <Image
             alt={item.name}
             className="object-contain"
@@ -387,7 +387,7 @@ function DetailBlock({
       ) : (
         <div
           className={[
-            "flex items-center justify-center border border-zinc-300 bg-zinc-100 font-black text-orange-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-orange-300",
+            "flex items-center justify-center border border-[#afafaf] bg-[#f2f2f2] font-black text-orange-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-orange-300",
             compact ? "h-6 w-6 text-xs" : "h-12 w-12 text-sm"
           ].join(" ")}
         >
@@ -411,7 +411,7 @@ function DetailBlock({
 
 function IconTile({ alt, src }: { alt: string; src: string }) {
   return (
-    <div className="flex h-14 w-14 items-center justify-center border border-zinc-300 bg-white dark:border-zinc-700 dark:bg-zinc-100">
+    <div className="flex h-14 w-14 items-center justify-center border border-[#afafaf] bg-[#f2f2f2] dark:border-zinc-700 dark:bg-zinc-100">
       <Image
         alt={alt}
         className="object-contain p-2"

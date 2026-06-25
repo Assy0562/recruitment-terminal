@@ -81,7 +81,7 @@ export function ThemeToggle() {
     <button
       aria-label="テーマを切り替える"
       aria-pressed={isDark}
-      className="group inline-grid h-8 w-[104px] grid-cols-2 overflow-hidden rounded-full border border-zinc-400/30 bg-zinc-900/10 text-zinc-500 shadow-[0_10px_18px_-17px_rgba(15,23,42,0.5)] transition duration-200 hover:border-orange-500/40 dark:border-zinc-700/75 dark:bg-zinc-900/64 dark:text-zinc-500 dark:shadow-[0_12px_22px_-18px_rgba(0,0,0,0.9)]"
+      className="group inline-grid h-8 w-[104px] grid-cols-2 overflow-hidden rounded-full border border-[#afafaf] bg-[#dcdcdc]/80 text-zinc-500 transition duration-200 hover:border-orange-500/40 dark:border-zinc-700/75 dark:bg-zinc-900/64 dark:text-zinc-500"
       onClick={toggleTheme}
       type="button"
     >
@@ -90,7 +90,7 @@ export function ThemeToggle() {
           "flex items-center justify-center transition duration-200",
           isDark
             ? "text-zinc-500 dark:text-zinc-500"
-            : "bg-white/35 text-orange-500 dark:bg-white/[0.05] dark:text-orange-400"
+            : "bg-[#f2f2f2]/50 text-orange-500 dark:bg-white/[0.05] dark:text-orange-400"
         ].join(" ")}
       >
         <SunIcon />
@@ -99,7 +99,7 @@ export function ThemeToggle() {
         className={[
           "flex items-center justify-center border-l border-zinc-500/15 transition duration-200 dark:border-zinc-700/60",
           isDark
-            ? "bg-black/[0.04] text-orange-500 dark:bg-white/[0.05] dark:text-orange-400"
+            ? "bg-[#f2f2f2]/40 text-orange-500 dark:bg-white/[0.05] dark:text-orange-400"
             : "text-zinc-500 dark:text-zinc-500"
         ].join(" ")}
       >
