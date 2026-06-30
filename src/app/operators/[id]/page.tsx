@@ -91,7 +91,7 @@ type OperatorDetailPageProps = {
 };
 
 export function generateStaticParams() {
-  // ローカルJSONの全オペレーター詳細ページをビルド時に静的生成する。
+  // Generate static detail pages from local operator JSON at build time.
   return operators.map((operator) => ({
     id: operator.id
   }));
@@ -123,7 +123,7 @@ export default async function OperatorDetailPage({
   return (
     <>
       <Header />
-      <main className="mx-auto max-w-7xl px-4 py-5">
+      <main className="mx-auto w-full max-w-[min(1500px,calc(100vw-2rem))] px-3 py-4 sm:px-4 sm:py-5">
         <Link
           className="terminal-button inline-flex px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] transition"
           href="/"
@@ -131,22 +131,22 @@ export default async function OperatorDetailPage({
           {labels.back}
         </Link>
 
-        <article className="mt-4 overflow-hidden border border-[#afafaf] bg-[#e4e4e4] shadow-[0_18px_44px_-34px_rgba(15,23,42,0.32)] dark:border-cyan-300/20 dark:bg-zinc-900 dark:shadow-[0_20px_54px_-38px_rgba(0,0,0,0.7)] lg:h-[calc(100vh-140px)]">
-          <div className="grid h-full lg:grid-cols-[42%_1fr]">
-            <section className="relative min-h-[460px] overflow-hidden border-b border-[#afafaf] bg-[#dcdcdc] lg:h-full lg:min-h-0 lg:border-b-0 lg:border-r dark:border-zinc-800 dark:bg-zinc-950">
+        <article className="mt-4 overflow-hidden border border-[#afafaf] bg-[#e4e4e4] shadow-[0_18px_44px_-34px_rgba(15,23,42,0.32)] dark:border-cyan-300/20 dark:bg-zinc-900 dark:shadow-[0_20px_54px_-38px_rgba(0,0,0,0.7)] lg:h-[calc(100vh-132px)] lg:min-h-[600px] lg:max-h-[880px]">
+          <div className="grid h-full lg:grid-cols-[minmax(430px,44%)_minmax(0,1fr)] xl:grid-cols-[minmax(500px,46%)_minmax(0,1fr)]">
+            <section className="relative min-h-[clamp(440px,68vh,700px)] overflow-hidden border-b border-[#afafaf] bg-[#dcdcdc] lg:h-full lg:min-h-0 lg:border-b-0 lg:border-r dark:border-zinc-800 dark:bg-zinc-950">
               <div className="absolute inset-0 bg-[linear-gradient(140deg,rgba(242,242,242,0.46),rgba(212,212,212,0.34)_42%,rgba(251,146,60,0.08)),linear-gradient(90deg,rgba(8,145,178,0.045)_1px,transparent_1px),linear-gradient(rgba(8,145,178,0.045)_1px,transparent_1px)] bg-[length:auto,40px_40px,40px_40px] dark:bg-[linear-gradient(140deg,rgba(24,24,27,0.5),rgba(9,9,11,0.84)_44%,rgba(251,146,60,0.08)),linear-gradient(90deg,rgba(103,232,249,0.035)_1px,transparent_1px),linear-gradient(rgba(103,232,249,0.035)_1px,transparent_1px)]" />
-              <div className="absolute right-[-2rem] top-12 text-6xl font-black uppercase tracking-[0.08em] text-zinc-950/[0.045] dark:text-white/[0.035] sm:text-7xl lg:text-8xl">
+              <div className="absolute right-[-1.5rem] top-10 text-6xl font-black uppercase tracking-[0.08em] text-zinc-950/[0.045] dark:text-white/[0.035] sm:text-7xl lg:text-[clamp(4.5rem,7vw,7rem)]">
                 Operator File
               </div>
               <div className="absolute inset-y-0 right-[18%] w-8 -skew-x-[18deg] bg-orange-500/[0.06] dark:bg-orange-400/[0.055]" />
-              <div className="relative h-full min-h-[460px] lg:min-h-0">
-                <div className="absolute inset-x-[-22%] bottom-0 top-4 sm:inset-x-[-18%] lg:inset-x-[-24%] lg:top-6">
+              <div className="relative h-full min-h-[clamp(440px,68vh,700px)] lg:min-h-0">
+                <div className="absolute inset-x-[-18%] bottom-[-1%] top-2 sm:inset-x-[-14%] lg:inset-x-[-18%] lg:top-4 xl:inset-x-[-14%]">
                   <Image
                     alt={operator.name}
-                    className="object-contain object-bottom"
+                    className="scale-[1.08] object-contain object-bottom lg:scale-[1.12]"
                     fill
                     priority
-                    sizes="(min-width: 1024px) 54vw, 120vw"
+                    sizes="(min-width: 1280px) 52vw, (min-width: 1024px) 50vw, 118vw"
                     src={operator.artUrl}
                   />
                 </div>
@@ -170,15 +170,15 @@ export default async function OperatorDetailPage({
               </div>
             </section>
 
-            <section className="relative overflow-visible bg-[#e4e4e4] text-zinc-950 dark:bg-zinc-900 dark:text-zinc-50 lg:h-full lg:overflow-y-auto">
-              <div className="relative mx-auto max-w-4xl px-5 py-7 sm:px-8 sm:py-9 lg:px-10">
+            <section className="relative overflow-visible bg-[#e4e4e4] text-zinc-950 dark:bg-zinc-900 dark:text-zinc-50 lg:h-full lg:min-w-0 lg:overflow-y-auto">
+              <div className="relative mx-auto max-w-4xl px-5 py-6 sm:px-8 sm:py-8 lg:px-[clamp(2rem,3vw,3rem)]">
                 <div className="border-b border-[#afafaf] pb-6 dark:border-zinc-800">
-                  <div className="grid gap-5 sm:grid-cols-[1fr_auto] sm:items-start">
+                  <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
                     <div>
-                      <p className="text-3xl font-black leading-none tracking-normal text-amber-600 dark:text-amber-300 sm:text-4xl">
+                      <p className="text-[clamp(1.75rem,3vw,2.5rem)] font-black leading-none tracking-normal text-amber-600 dark:text-amber-300">
                         {getRarityLabel(operator.rarity)}
                       </p>
-                      <h1 className="mt-2 text-4xl font-black leading-none tracking-normal text-zinc-950 dark:text-zinc-50 sm:text-5xl">
+                      <h1 className="mt-2 text-[clamp(2.25rem,4.2vw,3.25rem)] font-black leading-none tracking-normal text-zinc-950 dark:text-zinc-50">
                         {operator.name}
                       </h1>
                       {operatorEnglishName ? (
@@ -187,7 +187,7 @@ export default async function OperatorDetailPage({
                         </p>
                       ) : null}
 
-                      <div className="mt-7 border-l-4 border-orange-500 pl-4 dark:border-orange-400">
+                      <div className="mt-6 border-l-4 border-orange-500 pl-4 dark:border-orange-400">
                         <div className="flex items-center gap-3">
                           <IconTile alt={operator.profession} src={operator.classIconUrl} />
                           <IconTile alt={operator.branchNameEn} src={operator.branchIconUrl} />
@@ -201,7 +201,7 @@ export default async function OperatorDetailPage({
                       </div>
                     </div>
 
-                    <div className="flex flex-col items-start sm:items-end">
+                    <div className="flex flex-col items-start md:items-end">
                       <OperatorSdModel
                         englishName={operatorEnglishName}
                         operatorName={operator.name}
@@ -270,7 +270,7 @@ export default async function OperatorDetailPage({
 }
 
 function getBlockCount(operator: Operator): string {
-  const traitMatch = operator.trait.match(/敵を(\d+)体までブロック/);
+  const traitMatch = operator.trait.match(/\u6575\u3092(\d+)\u4f53\u307e\u3067\u30d6\u30ed\u30c3\u30af/);
   if (traitMatch?.[1]) {
     return traitMatch[1];
   }
@@ -279,7 +279,7 @@ function getBlockCount(operator: Operator): string {
 }
 
 function getRangePattern(operator: Operator): RangePattern {
-  // 攻撃範囲はオペレーターIDごとのJSONを優先し、欠けている場合だけ標準形に戻す。
+  // Prefer per-operator range data and fall back to the standard shape when missing.
   return operatorRanges[operator.id] ?? defaultRangePattern;
 }
 
@@ -308,7 +308,7 @@ function RangePanel({
   const activeCells = new Set(pattern.cells.map(([column, row]) => `${column}-${row}`));
   const originCell = pattern.origin ? `${pattern.origin[0]}-${pattern.origin[1]}` : null;
 
-  // originが本人の配置マス、cellsが攻撃可能マス。色を分けて範囲の向きを読みやすくする。
+  // origin is the operator tile; cells are attackable tiles.
   return (
     <div className="inline-flex max-w-full flex-col gap-1">
       <p className="text-[0.48rem] font-black uppercase tracking-[0.1em] text-zinc-500">

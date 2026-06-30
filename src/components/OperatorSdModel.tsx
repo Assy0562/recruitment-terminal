@@ -30,15 +30,15 @@ export function OperatorSdModel({
   return (
     <div
       aria-label={`${operatorName} SD`}
-      className="w-40 overflow-hidden border border-[#afafaf] bg-[#dcdcdc]/70 dark:border-zinc-800 dark:bg-zinc-950/65"
+      className="w-[clamp(9.5rem,13vw,11rem)] overflow-hidden border border-[#afafaf] bg-[#dcdcdc]/70 dark:border-zinc-800 dark:bg-zinc-950/65"
       role="img"
     >
-      <div className="relative h-40 w-40 overflow-hidden">
+      <div className="relative aspect-square w-full overflow-hidden">
         {canShowVideo ? (
           <video
             aria-hidden="true"
             autoPlay
-            className="absolute inset-0 h-full w-full -translate-y-5 scale-[2.28] object-contain p-2"
+            className="absolute inset-0 h-full w-full -translate-y-[13%] scale-[2.34] object-contain p-2"
             key={sdVideoUrl}
             loop
             muted
