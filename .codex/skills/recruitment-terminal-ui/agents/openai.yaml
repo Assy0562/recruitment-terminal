@@ -1,0 +1,6 @@
+﻿interface:
+  display_name: "Recruitment Terminal UI"
+  short_description: "Apply the project's tactical industrial UI rules."
+  default_prompt: "Use $recruitment-terminal-ui to review or adjust this app's UI."
+policy:
+  allow_implicit_invocation: true

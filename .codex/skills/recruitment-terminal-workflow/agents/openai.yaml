@@ -1,0 +1,6 @@
+﻿interface:
+  display_name: "Recruitment Terminal Workflow"
+  short_description: "Run project sessions, checks, commits, and pushes."
+  default_prompt: "Use $recruitment-terminal-workflow for this Recruitment Terminal project task."
+policy:
+  allow_implicit_invocation: true
