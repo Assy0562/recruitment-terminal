@@ -1,118 +1,79 @@
 # Project Status
 
-このファイルは、Recruitment Terminal の現在地を短く把握するための作業メモです。
-ChatGPT / Codex と協業するときは、まずこのファイルを確認します。
+Recruitment Terminal の現在地を短く把握するためのメモです。AI と作業するときは、まずこのファイルだけ確認すれば大体の前提が分かる状態を目指します。
 
 ## 現在の状態
 
-- Next.js + TypeScript + Tailwind CSS + App Router で実装中
-- DB / ログイン機能なし
-- データはローカルJSONで管理
-- 公開求人タグ検索MVPは実装済み
-- タグ選択状態は詳細ページから戻っても保持される
-- オペレーター詳細ページを実装済み
-- 詳細ページでは以下を表示中
-  - 日本語名 / 英語名
-  - レアリティ
-  - 職業 / 職分 / 配置
-  - 立ち絵
-  - SDモデル
-  - ブロック数
-  - 昇進2ベースの攻撃範囲
-  - 配置マス
-  - 特性 / 素質 / スキル
-- ダーク / ライトテーマ対応済み
-- GitHub / Vercel 公開済み
+- Next.js + TypeScript + Tailwind CSS + App Router で実装中。
+- DB / ログイン機能なし。
+- データは `src/data/*.json` のローカル JSON で管理。
+- 公開求人タグ検索、候補表示、詳細ページは実装済み。
+- タグ選択状態と候補カードの展開状態は保持する方針。
+- ダーク / ライトテーマ対応済み。
+- GitHub / Vercel 公開済み。
 
-## 次にやる候補
+## 主な画面
 
-- UIの細かい違和感を調整する
-- 検索結果の並び替えを検討する
-- データ更新フローを整理する
-- アクセシビリティを改善する
-- 学習用コメントやdocsを必要最小限で整える
+- トップ画面: タグ選択、選択中タグ、求人候補一覧。
+- 詳細画面: 立ち絵、レアリティ、名前、職業/職分、SD、戦闘情報、特性、素質、スキル。
 
-## 直近でよく触るファイル
+## よく触るファイル
 
-- `src/app/page.tsx`
-- `src/components/RecruitmentApp.tsx`
-- `src/components/CombinationCandidates.tsx`
-- `src/components/OperatorCard.tsx`
-- `src/app/operators/[id]/page.tsx`
-- `src/components/OperatorSdModel.tsx`
-- `src/lib/recruit.ts`
-- `src/types/operator.ts`
-- `src/data/operators.json`
-- `src/data/tags.json`
-- `src/data/operatorEnglishNames.json`
-- `src/data/operatorRanges.json`
+- `src/components/RecruitmentApp.tsx`: トップ画面の状態管理。
+- `src/components/CombinationCandidates.tsx`: 求人候補の組み合わせ表示。
+- `src/components/OperatorCard.tsx`: 候補内のオペレーターカード。
+- `src/app/operators/[id]/page.tsx`: オペレーター詳細画面。
+- `src/components/OperatorSdModel.tsx`: SD と戦闘情報カード。
+- `src/lib/recruit.ts`: タグ検索ロジック。
+- `src/types/operator.ts`: 型定義。
+- `src/data/operators.json`: オペレーター基本データ。
+- `src/data/operatorRanges.json`: 攻撃範囲データ。
+- `src/data/operatorDisplaySettings.json`: 詳細画面の立ち絵表示補正。
 
-## ChatGPT と Codex の役割分担
+## 作業再開
 
-### ChatGPT
+ユーザーが `作業再開` と言ったら:
 
-- 方針整理
-- UI改善案
-- 学習相談
-- ポートフォリオとしての見せ方相談
-- READMEや説明文の草案作成
+1. ローカルサーバーを起動する。
+2. URL はコードブロックに入れず、普通のテキストで報告する。
+3. 必要に応じてこのファイルと、対象ファイルだけ確認する。
 
-### Codex
+## 作業終了
 
-- コード確認
-- 実装
-- リファクタリング
-- `npm run lint` / `npm run build`
-- ローカルサーバー起動 / 停止
-- Git操作
-- GitHubへのpush
+ユーザーが `作業終了` と言ったら:
 
-## 作業開始時の流れ
+1. 必要なら lint / build / push の状況を確認する。
+2. ローカルサーバーを停止する。
+3. 簡潔に報告する。
 
-ユーザーが「作業再開」と言ったら、Codexは以下を行います。
+## AI 協業ルール
 
-1. ローカルサーバーを起動する
-2. 必要に応じて `docs/project-status.md` を確認する
-3. 今日触るファイルを絞る
-4. 実装や調査を始める
+- 通常は `docs/project-status.md` だけ確認する。
+- 大きな設計変更や外向け説明が必要なときだけ `README.md` も確認する。
+- ファイルの役割確認や学習説明が必要なときだけ `docs/file-roles.md` を確認する。
+- 大きい JSON は丸ごと読まず、必要な ID や項目だけ確認する。
+- ユーザーが対象外とした画面やロジックは触らない。
+- 既存の未コミット差分は、依頼と無関係なら commit に含めない。
 
-## 作業終了時の流れ
+## 検証方針
 
-ユーザーが「作業終了」と言ったら、Codexは以下を行います。
+- コード/UI変更: `npm run lint` と `npm run build` を確認する。
+- ドキュメントのみ: 原則 lint/build は不要。
+- push 前: `git status --short` で対象外差分が混ざっていないか確認する。
 
-1. 必要なら `npm run lint` / `npm run build` を確認する
-2. 必要ならGitHubへpushする
-3. ローカルサーバーを停止する
-4. 作業状態を簡潔に報告する
+## 報告形式
 
-## トークン消費を抑える頼み方
+基本は以下だけでよいです。
 
-AIに依頼するときは、毎回プロジェクト全体を読ませず、対象を絞るとよいです。
+- 実施内容
+- 変更ファイル
+- 動作確認結果
+- 残課題
 
-例:
+## 次に改善しそうなこと
 
-```text
-docs/project-status.md と src/lib/recruit.ts だけ確認して進めて
-```
-
-```text
-今回は詳細ページだけ見て。対象は src/app/operators/[id]/page.tsx と OperatorSdModel.tsx
-```
-
-```text
-実装はまだしないで、方針だけ提案して
-```
-
-## 最低限維持するドキュメント
-
-- `README.md`
-  - 外部向けの概要、機能、起動方法
-- `docs/file-roles.md`
-  - 学習用のファイル役割メモ
-- `docs/project-status.md`
-  - AI協業用の現在地メモ
-
-## 更新ルール
-
-このファイルは完璧に保つ必要はありません。
-大きな機能追加、運用ルール変更、次にやることが変わったときだけ短く更新します。
+- 詳細画面の立ち絵表示バランス調整。
+- `operatorDisplaySettings.json` の補正値整理。
+- データ更新フローの整理。
+- アクセシビリティ改善。
+- 学習用 docs の必要最小限の維持。

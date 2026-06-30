@@ -1,15 +1,18 @@
 import { Header } from "@/components/Header";
 import { OperatorSdModel } from "@/components/OperatorSdModel";
+import operatorDisplaySettingsData from "@/data/operatorDisplaySettings.json";
 import operatorEnglishNamesData from "@/data/operatorEnglishNames.json";
 import operatorRangesData from "@/data/operatorRanges.json";
 import operatorsData from "@/data/operators.json";
 import { getRarityLabel } from "@/lib/recruit";
+import type { CSSProperties } from "react";
 import type { Operator, OperatorDetailItem } from "@/types/operator";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 const operators = operatorsData as Operator[];
+const operatorDisplaySettings = operatorDisplaySettingsData as Record<string, OperatorDisplaySetting>;
 const operatorEnglishNames = operatorEnglishNamesData as Record<string, string>;
 const operatorRanges = operatorRangesData as unknown as Record<string, RangePattern>;
 
@@ -70,6 +73,18 @@ const blockCountByBranch: Record<string, string> = {
   "Sentry Protector Defender": "3"
 };
 
+type OperatorDisplaySetting = {
+  scale?: number;
+  x?: number;
+  y?: number;
+};
+
+const defaultOperatorDisplaySetting: Required<OperatorDisplaySetting> = {
+  scale: 1.03,
+  x: 0,
+  y: 0
+};
+
 type RangePattern = {
   columns: number;
   rows: number;
@@ -119,6 +134,7 @@ export default async function OperatorDetailPage({
   const blockCount = getBlockCount(operator);
   const operatorEnglishName = operatorEnglishNames[operator.id];
   const rangePattern = getRangePattern(operator);
+  const artDisplayStyle = getOperatorArtStyle(operator.id);
 
   return (
     <>
@@ -140,13 +156,14 @@ export default async function OperatorDetailPage({
               </div>
               <div className="absolute inset-y-0 right-[18%] w-8 -skew-x-[18deg] bg-orange-500/[0.06] dark:bg-orange-400/[0.055]" />
               <div className="relative h-full min-h-[clamp(440px,68vh,700px)] lg:min-h-0">
-                <div className="absolute inset-x-[-18%] bottom-[-1%] top-2 sm:inset-x-[-14%] lg:inset-x-[-18%] lg:top-4 xl:inset-x-[-14%]">
+                <div className="absolute inset-x-[-16%] bottom-8 top-8 sm:inset-x-[-12%] sm:bottom-9 sm:top-9 lg:inset-x-[-16%] lg:bottom-10 lg:top-10 xl:inset-x-[-12%]">
                   <Image
                     alt={operator.name}
-                    className="scale-[1.08] object-contain object-bottom lg:scale-[1.12]"
+                    className="object-contain object-bottom"
                     fill
                     priority
                     sizes="(min-width: 1280px) 52vw, (min-width: 1024px) 50vw, 118vw"
+                    style={artDisplayStyle}
                     src={operator.artUrl}
                   />
                 </div>
@@ -267,6 +284,18 @@ export default async function OperatorDetailPage({
       </main>
     </>
   );
+}
+
+function getOperatorArtStyle(operatorId: string): CSSProperties {
+  const setting = {
+    ...defaultOperatorDisplaySetting,
+    ...operatorDisplaySettings[operatorId]
+  };
+
+  return {
+    transform: `translate(${setting.x}%, ${setting.y}%) scale(${setting.scale})`,
+    transformOrigin: "center bottom"
+  };
 }
 
 function getBlockCount(operator: Operator): string {
