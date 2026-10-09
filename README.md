@@ -96,6 +96,8 @@ npm run build
 npm run lint
 ```
 
+main向けPull Requestでは、GitHub Actionsがlintとbuildを自動実行します。結果はPRの「Checks」で確認できます。画面操作は必要に応じて別途確認します。
+
 ## 学習メモ
 
 - [ファイル構成と役割メモ](docs/file-roles.md)

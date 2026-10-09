@@ -48,6 +48,7 @@ Recruitment Terminal の現在地を短く把握するためのメモです。AI
 
 ## AI 協業ルール
 
+- GitHubのIssue・PR・レビュー・マージ・手動テストは `.codex/skills/recruitment-terminal-workflow/SKILL.md` の GitHub Workflow に従う。このアプリ固有の確認は下の検証方針を使う。
 - 通常は `docs/project-status.md` だけ確認する。
 - 大きな設計変更や外向け説明が必要なときだけ `README.md` も確認する。
 - ファイルの役割確認や学習説明が必要なときだけ `docs/file-roles.md` を確認する。
@@ -59,6 +60,7 @@ Recruitment Terminal の現在地を短く把握するためのメモです。AI
 
 - コード/UI変更: `npm run lint` と `npm run build` を確認する。
 - ドキュメントのみ: 原則 lint/build は不要。
+- main向けPRではGitHub Actionsがlintとbuildを実行する。現時点では自動テスト用コマンドはない。
 - push 前: `git status --short` で対象外差分が混ざっていないか確認する。
 
 ## 報告形式

@@ -1,6 +1,6 @@
 ﻿---
 name: recruitment-terminal-workflow
-description: Recruitment Terminal リポジトリの作業フロー。作業再開、作業終了、ローカルサーバーの起動・停止、プロジェクト状況確認、commit、GitHub への push、この Next.js ポートフォリオプロジェクトの通常検証を行うときに使用する。
+description: Recruitment Terminal リポジトリの作業フロー。作業再開・終了、ローカルサーバー、GitHubのIssue・PR、検証、マージを扱うときに使用する。
 ---
 
 # Recruitment Terminal Workflow
@@ -11,7 +11,7 @@ Recruitment Terminal プロジェクトの定常作業にこの skill を使用�
 
 標準のリポジトリパス:
 
-`C:\Users\assy0\OneDrive\デスクトップ\公開求人`
+`C:\Projects\公開求人`
 
 現在の workspace が異なる場合は、`README.md`, `package.json`, `src/components/RecruitmentApp.tsx` がある場所を確認してリポジトリを探す。
 
@@ -44,27 +44,23 @@ Recruitment Terminal プロジェクトの定常作業にこの skill を使用�
 
 1. このプロジェクト用に起動したローカル開発サーバーを停止する。
 2. サーバー session を確認できない場合のみ、port 3000 を確認する。
-3. ユーザーが依頼した場合、または現在の作業に push が明確に含まれている場合を除き、自動で push しない。
+3. 作業中の変更とGitHubの状態を確認し、依頼された開発作業は下記の共通手順に沿って完了させる。無関係な未コミット差分は含めない。
 4. サーバーを停止したか、すでに停止済みだったかを報告する。
 
-## Push Workflow
+## GitHub Workflow
 
-ユーザーが push を依頼したら:
+Samのローカル環境では、Issue・PR・レビュー・マージ・手動テストの基本は `C:\Users\assy0\Documents\Codex\DEVELOPMENT_WORKFLOW.md` に従う。このファイルを参照できない環境では、Issueに目的と完了条件を記し、PRで変更内容と確認結果を示し、レビューとChecksの後にマージする。手動テストは結果を追加コメントに記録してからIssueを閉じる。現在のユーザー指示と、このリポジトリの固有ルールを優先する。
 
-1. `git status --short` を実行する。
-2. 変更ファイルを確認し、無関係なファイルを commit に含めない。
-3. コード変更がある場合、最新編集後に検証済みでなければ `npm.cmd run lint` と `npm.cmd run build` の実行を優先する。
-4. 意図したファイルだけ stage する。
-5. 簡潔な message で commit する。
-6. `git push` を実行する。
-7. `git status --short` が clean であることを確認する。
+開発依頼では変更範囲を確認し、必要な検証後に意図したファイルだけcommit・pushしてPRを作る。レビュー指摘とChecksに問題がなければマージまで進める。仕様の大きな変更やデータ損失につながる判断は先に相談する。
+
+このリポジトリには現在、自動テスト用のコマンドがない。PRではlintとbuildを確認し、画面や公開データに関わる変更は必要に応じて公開版の手動テストケースをまとめて用意する。
 
 ## Validation Defaults
 
 コードまたは UI を変更した場合:
 
 - `npm.cmd run lint` を実行する。
-- production の挙動に影響する可能性がある変更では `npm.cmd run build` を実行する。
+- `npm.cmd run build` を実行する。
 - ドキュメントのみの変更では、通常 lint / build は不要。
 
 ## Reporting Style
