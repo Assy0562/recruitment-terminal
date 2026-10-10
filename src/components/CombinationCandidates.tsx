@@ -1,5 +1,6 @@
 "use client";
 
+import { readStorage, writeStorage } from "@/lib/browser-storage";
 import { getRarityLabel, type TagCombinationCandidate } from "@/lib/recruit";
 import { useEffect, useState } from "react";
 import { OperatorCard } from "./OperatorCard";
@@ -58,8 +59,8 @@ function createSelectedTagsKey(selectedTags: string[]): string {
 
 function getStoredExpandedCandidateIds(selectedTagsKey: string): string[] {
   try {
-    const storedValue = window.sessionStorage.getItem(
-      expandedCandidatesStorageKey
+    const storedValue = readStorage(
+      "sessionStorage", expandedCandidatesStorageKey
     );
     if (!storedValue) {
       return [];
@@ -99,7 +100,7 @@ export function CombinationCandidates({
 
   useEffect(() => {
     if (selectedTags.length === 0) {
-      window.sessionStorage.removeItem(expandedCandidatesStorageKey);
+      writeStorage("sessionStorage", expandedCandidatesStorageKey, null);
       return;
     }
 
@@ -110,8 +111,8 @@ export function CombinationCandidates({
       visibleCandidateIds.has(candidateId)
     );
 
-    window.sessionStorage.setItem(
-      expandedCandidatesStorageKey,
+    writeStorage(
+      "sessionStorage", expandedCandidatesStorageKey,
       JSON.stringify({
         selectedTagsKey,
         expandedCandidateIds: storableExpandedIds

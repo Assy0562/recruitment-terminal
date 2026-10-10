@@ -1,29 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { writeStorage } from "@/lib/browser-storage";
 
 type Theme = "dark" | "light";
-
-function getInitialTheme(): Theme {
-  if (typeof window === "undefined") {
-    return "dark";
-  }
-
-  const savedTheme = window.localStorage.getItem("theme");
-  if (savedTheme === "dark" || savedTheme === "light") {
-    return savedTheme;
-  }
-
-  return window.matchMedia("(prefers-color-scheme: light)").matches
-    ? "light"
-    : "dark";
-}
-
-function applyTheme(theme: Theme) {
-  document.documentElement.classList.toggle("dark", theme === "dark");
-  document.documentElement.classList.toggle("light", theme === "light");
-  window.localStorage.setItem("theme", theme);
-}
 
 function SunIcon() {
   return (
@@ -63,16 +43,21 @@ function MoonIcon() {
 }
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    applyTheme(theme);
-  }, [theme]);
+    // Match the server HTML first, then adopt the pre-paint script's theme.
+    queueMicrotask(() => {
+      setTheme(document.documentElement.classList.contains("light") ? "light" : "dark");
+    });
+  }, []);
 
   function toggleTheme() {
-    setTheme((currentTheme) => {
-      return currentTheme === "dark" ? "light" : "dark";
-    });
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    document.documentElement.classList.toggle("dark", nextTheme === "dark");
+    document.documentElement.classList.toggle("light", nextTheme === "light");
+    writeStorage("localStorage", "theme", nextTheme);
+    setTheme(nextTheme);
   }
 
   const isDark = theme === "dark";

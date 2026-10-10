@@ -58,9 +58,9 @@ Recruitment Terminal の現在地を短く把握するためのメモです。AI
 
 ## 検証方針
 
-- コード/UI変更: `npm run lint` と `npm run build` を確認する。
+- コード/UI変更: `npm test`、`npm run lint` と `npm run build` を確認する。
 - ドキュメントのみ: 原則 lint/build は不要。
-- main向けPRではGitHub Actionsがlintとbuildを実行する。現時点では自動テスト用コマンドはない。
+- main向けPRではGitHub Actionsがtest・lint・buildを実行する。保存領域の例外と保存タグの検証は `npm test` で確認する。
 - push 前: `git status --short` で対象外差分が混ざっていないか確認する。
 
 ## 報告形式

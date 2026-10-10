@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { parseSelectedTags, readStorage, writeStorage } from "@/lib/browser-storage";
 import operatorsData from "@/data/operators.json";
 import tagCategoriesData from "@/data/tags.json";
 import { getTagCombinationCandidates } from "@/lib/recruit";
@@ -17,25 +18,9 @@ const validTags = new Set(tagCategories.flatMap((group) => group.tags));
 
 // 詳細ページから戻ったときに、選択中タグを復元するための読み込み処理。
 function getStoredSelectedTags(): string[] {
-  try {
-    const storedValue = window.sessionStorage.getItem(selectedTagsStorageKey);
-    if (!storedValue) {
-      return [];
-    }
-
-    const parsedValue = JSON.parse(storedValue);
-    if (!Array.isArray(parsedValue)) {
-      return [];
-    }
-
-    return parsedValue
-      .filter((tag): tag is string => {
-        return typeof tag === "string" && validTags.has(tag);
-      })
-      .slice(0, maxSelectedTags);
-  } catch {
-    return [];
-  }
+  return parseSelectedTags(
+    readStorage("sessionStorage", selectedTagsStorageKey), validTags, maxSelectedTags
+  );
 }
 
 function createSelectedTagsKey(selectedTags: string[]): string {
@@ -59,8 +44,8 @@ export function RecruitmentApp() {
       return;
     }
 
-    window.sessionStorage.setItem(
-      selectedTagsStorageKey,
+    writeStorage(
+      "sessionStorage", selectedTagsStorageKey,
       JSON.stringify(selectedTags)
     );
   }, [hasRestoredSelection, selectedTags]);

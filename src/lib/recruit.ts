@@ -24,6 +24,7 @@ export function filterOperators(
   }
 
   return operators.filter((operator) =>
+    (operator.rarity !== 6 || selectedTags.includes("上級エリート")) &&
     selectedTags.every((tag) => operator.tags.includes(tag))
   );
 }
