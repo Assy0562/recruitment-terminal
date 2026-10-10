@@ -81,7 +81,7 @@ test("unmatched tags and empty operator data produce no candidates", () => {
 
 test("matching operators are sorted by rarity and summaries reflect their range", () => {
   const input = [operator("low", 3, ["A"]), operator("high", 5, ["A"]), operator("middle", 4, ["A"])];
-  const selected = ["A"];
+  const selected = ["B", "A"];
   const original = structuredClone({ input, selected });
   const [candidate] = getTagCombinationCandidates(input, selected);
   assert.deepEqual(candidate.operators.map(op => op.id), ["high", "middle", "low"]);
