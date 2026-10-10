@@ -90,13 +90,17 @@ http://localhost:3000
 npm run build
 ```
 
+## 自動テスト
+
+Node.js 24で `npm test` を実行します。ブラウザ保存領域の例外処理と保存タグの検証を確認します。
+
 ## Lint
 
 ```bash
 npm run lint
 ```
 
-main向けPull Requestでは、GitHub Actionsがlintとbuildを自動実行します。結果はPRの「Checks」で確認できます。画面操作は必要に応じて別途確認します。
+main向けPull Requestでは、GitHub Actionsがtest・lint・buildを自動実行します。結果はPRの「Checks」で確認できます。画面操作は必要に応じて別途確認します。
 
 ## 学習メモ
 
