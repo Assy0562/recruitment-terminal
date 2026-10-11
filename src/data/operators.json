@@ -5939,5 +5939,130 @@
     "classNameEn": "Specialist",
     "branchIconUrl": "https://cdn.jsdelivr.net/gh/tohmatosauce/ak-branch-icons@main/600-border/Specialist/Executor.svg",
     "branchNameEn": "Executor Specialist"
+  },
+  {
+    "id": "char_426_billro",
+    "name": "カーネリアン",
+    "rarity": 6,
+    "profession": "術師",
+    "position": "遠距離",
+    "tags": [
+      "遠距離",
+      "術師",
+      "範囲攻撃",
+      "防御",
+      "上級エリート"
+    ],
+    "imageUrl": "https://cdn.jsdelivr.net/gh/HellaOrg/HellaAssets@2611135e7c018bec0f0fb72d94396e05a2609a58/operator/avatars/char_426_billro.png",
+    "artUrl": "https://cdn.jsdelivr.net/gh/HellaOrg/HellaAssets@2611135e7c018bec0f0fb72d94396e05a2609a58/operator/arts/char_426_billro_1.png",
+    "trait": "通常時攻撃しない、防御力と術耐性大幅上昇 スキル発動中、通常攻撃が攻撃範囲内の敵全員に範囲術ダメージを与える",
+    "talents": [
+      {
+        "name": "血肉饗宴",
+        "description": "スキル発動時、HPが最大値の45%（+5%）回復 オーバーチャージ効果発動時、HPの回復量が2倍になる"
+      },
+      {
+        "name": "狂嵐の兆し",
+        "description": "SPが最大値以上の時、自身のSP自然回復速度+0.6sp/秒"
+      }
+    ],
+    "skills": [
+      {
+        "name": "熱砂護陣",
+        "description": "攻撃力+60%、防御力+100% オーバーチャージ追加効果：特性の効果はスキル発動期間中も有効になる",
+        "iconUrl": "https://cdn.jsdelivr.net/gh/HellaOrg/HellaAssets@2611135e7c018bec0f0fb72d94396e05a2609a58/operator/skills/skill_icon_skchr_billro_1.png"
+      },
+      {
+        "name": "砂縛地獄",
+        "description": "通常攻撃の間隔を大幅に短縮し、攻撃対象を0.3秒足止めする オーバーチャージ追加効果：攻撃力+20%、「0.3秒の足止め」が「0.6秒のバインド」に変化する",
+        "iconUrl": "https://cdn.jsdelivr.net/gh/HellaOrg/HellaAssets@2611135e7c018bec0f0fb72d94396e05a2609a58/operator/skills/skill_icon_skchr_billro_2.png"
+      },
+      {
+        "name": "喰殺ノ刻印",
+        "description": "攻撃範囲拡大、攻撃力が+280%になるまで徐々に上昇 オーバーチャージ追加効果：攻撃が命中した対象のカーネリアンからの被ダメージは、スキル終了まで+20%（最大5回まで重複可能）",
+        "iconUrl": "https://cdn.jsdelivr.net/gh/HellaOrg/HellaAssets@2611135e7c018bec0f0fb72d94396e05a2609a58/operator/skills/skill_icon_skchr_billro_3.png"
+      }
+    ],
+    "classIconUrl": "https://cdn.jsdelivr.net/gh/tohmatosauce/ak-branch-icons@main/600-border/Caster/Caster.svg",
+    "classNameEn": "Caster",
+    "branchIconUrl": "https://cdn.jsdelivr.net/gh/tohmatosauce/ak-branch-icons@main/600-border/Caster/Phalanx.svg",
+    "branchNameEn": "Phalanx Caster"
+  },
+  {
+    "id": "char_478_kirara",
+    "name": "キララ",
+    "rarity": 5,
+    "profession": "特殊",
+    "position": "近距離",
+    "tags": [
+      "近距離",
+      "特殊",
+      "火力",
+      "生存",
+      "エリート"
+    ],
+    "imageUrl": "https://cdn.jsdelivr.net/gh/HellaOrg/HellaAssets@2611135e7c018bec0f0fb72d94396e05a2609a58/operator/avatars/char_478_kirara.png",
+    "artUrl": "https://cdn.jsdelivr.net/gh/HellaOrg/HellaAssets@2611135e7c018bec0f0fb72d94396e05a2609a58/operator/arts/char_478_kirara_1.png",
+    "trait": "攻撃範囲内の敵全員を同時に攻撃 物理回避、術回避が50%上昇 敵に狙われにくい",
+    "talents": [
+      {
+        "name": "ソロプレイ",
+        "description": "HPが1秒ごとに最大値の2%回復。周囲8マスに味方がいない場合、1秒ごとの回復値が最大値の4%（+0.5%）になる"
+      }
+    ],
+    "skills": [
+      {
+        "name": "アンカークラッシュ",
+        "description": "次の通常攻撃時、追加で敵に攻撃力の150%の術ダメージを与える",
+        "iconUrl": "https://cdn.jsdelivr.net/gh/HellaOrg/HellaAssets@2611135e7c018bec0f0fb72d94396e05a2609a58/operator/skills/skill_icon_skchr_kirara_1.png"
+      },
+      {
+        "name": "アンカーポイント",
+        "description": "素質の効果が3倍まで上昇、1秒ごとに攻撃範囲内にいる敵全員に攻撃力の100%の術ダメージを与える",
+        "iconUrl": "https://cdn.jsdelivr.net/gh/HellaOrg/HellaAssets@2611135e7c018bec0f0fb72d94396e05a2609a58/operator/skills/skill_icon_skchr_kirara_2.png"
+      }
+    ],
+    "classIconUrl": "https://cdn.jsdelivr.net/gh/tohmatosauce/ak-branch-icons@main/600-border/Specialist/Specialist.svg",
+    "classNameEn": "Specialist",
+    "branchIconUrl": "https://cdn.jsdelivr.net/gh/tohmatosauce/ak-branch-icons@main/600-border/Specialist/Ambusher.svg",
+    "branchNameEn": "Ambusher Specialist"
+  },
+  {
+    "id": "char_469_indigo",
+    "name": "インディゴ",
+    "rarity": 4,
+    "profession": "術師",
+    "position": "遠距離",
+    "tags": [
+      "遠距離",
+      "術師",
+      "火力",
+      "牽制"
+    ],
+    "imageUrl": "https://cdn.jsdelivr.net/gh/HellaOrg/HellaAssets@2611135e7c018bec0f0fb72d94396e05a2609a58/operator/avatars/char_469_indigo.png",
+    "artUrl": "https://cdn.jsdelivr.net/gh/HellaOrg/HellaAssets@2611135e7c018bec0f0fb72d94396e05a2609a58/operator/arts/char_469_indigo_1.png",
+    "trait": "敵に術ダメージを与える 攻撃の対象がいない場合はエネルギーをチャージして（最大3回）次の攻撃時に一斉発射する",
+    "talents": [
+      {
+        "name": "柔光のとばり",
+        "description": "攻撃時、20%（+2%）の確率で攻撃対象を4秒間バインドする（バインド状態の敵を攻撃しない）"
+      }
+    ],
+    "skills": [
+      {
+        "name": "導灯の守護者",
+        "description": "攻撃範囲変化、攻撃間隔を大幅に短縮し、通常攻撃時、敵に攻撃力の50%の術ダメージを与える",
+        "iconUrl": "https://cdn.jsdelivr.net/gh/HellaOrg/HellaAssets@2611135e7c018bec0f0fb72d94396e05a2609a58/operator/skills/skill_icon_skchr_indigo_1.png"
+      },
+      {
+        "name": "光と影の迷路",
+        "description": "通常攻撃の間隔を短縮し、素質の発動確率が3倍まで上昇、攻撃範囲内にいるバインド状態の敵に0.5秒ごとにインディゴの攻撃力の20%の術ダメージを与える",
+        "iconUrl": "https://cdn.jsdelivr.net/gh/HellaOrg/HellaAssets@2611135e7c018bec0f0fb72d94396e05a2609a58/operator/skills/skill_icon_skchr_indigo_2.png"
+      }
+    ],
+    "classIconUrl": "https://cdn.jsdelivr.net/gh/tohmatosauce/ak-branch-icons@main/600-border/Caster/Caster.svg",
+    "classNameEn": "Caster",
+    "branchIconUrl": "https://cdn.jsdelivr.net/gh/tohmatosauce/ak-branch-icons@main/600-border/Caster/Mystic.svg",
+    "branchNameEn": "Mystic Caster"
   }
 ]
