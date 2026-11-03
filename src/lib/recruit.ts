@@ -1,3 +1,4 @@
+import tagCategories from "../data/tags.json" with { type: "json" };
 import type { Operator } from "@/types/operator";
 
 export type RarityGroup = {
@@ -134,6 +135,8 @@ export type OperatorCandidate = {
 };
 
 // Reuse the eligible combinations so the overview cannot broaden recruitment rules.
+const professionOrder = tagCategories.find(category => category.category === "職業")?.tags ?? [];
+
 export function getOperatorCandidates(candidates: TagCombinationCandidate[]): OperatorCandidate[] {
   const byId = new Map<string, OperatorCandidate>();
   for (const candidate of candidates) {
@@ -146,6 +149,8 @@ export function getOperatorCandidates(candidates: TagCombinationCandidate[]): Op
     }
   }
   return [...byId.values()].sort((a, b) =>
+    (professionOrder.indexOf(a.operator.profession) < 0 ? professionOrder.length : professionOrder.indexOf(a.operator.profession)) -
+    (professionOrder.indexOf(b.operator.profession) < 0 ? professionOrder.length : professionOrder.indexOf(b.operator.profession)) ||
     b.operator.rarity - a.operator.rarity || a.operator.name.localeCompare(b.operator.name, "ja")
   );
 }
