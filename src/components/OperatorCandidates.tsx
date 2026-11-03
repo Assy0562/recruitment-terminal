@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { getOperatorCandidates, getRarityLabel, type TagCombinationCandidate } from "@/lib/recruit";
 import { OperatorCard } from "./OperatorCard";
 
@@ -5,6 +8,7 @@ export function OperatorCandidates({ candidates, hasSelection }: {
   candidates: TagCombinationCandidate[];
   hasSelection: boolean;
 }) {
+  const [openOperatorId, setOpenOperatorId] = useState<string | null>(null);
   const entries = getOperatorCandidates(candidates);
   return (
     <section className="terminal-panel terminal-panel-plain p-3 sm:p-4">
@@ -16,13 +20,19 @@ export function OperatorCandidates({ candidates, hasSelection }: {
         {hasSelection ? "選択したタグの一部を使って募集できる候補です。全タグ一致や入手確定を意味しません。" : "手元の求人タグを選ぶと、募集できるキャラを重複なしで表示します。"}
       </p>
       {hasSelection && entries.length === 0 ? <p>候補がありません。タグを選び直してください。</p> : null}
-      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid items-start gap-2 md:grid-cols-2 xl:grid-cols-3">
         {entries.map(({ operator, combinations }) => (
           <article key={operator.id} className="min-w-0">
-            <OperatorCard operator={operator} />
+            <div className="relative">
+              <OperatorCard operator={operator} reserveActionSpace />
+              <button type="button" className="terminal-button absolute right-2 top-2 px-2 py-1 text-xs font-semibold"
+                onClick={() => setOpenOperatorId(current => current === operator.id ? null : operator.id)}>
+                {openOperatorId === operator.id ? "閉じる" : "タグ"}
+              </button>
+            </div>
             {operator.rarity === 6 ? <p className="mt-1 text-xs font-bold text-orange-700 dark:text-orange-300">上級エリート必須</p> : null}
-            <details className="mt-2 text-xs">
-              <summary className="cursor-pointer py-2 font-semibold">狙えるタグ（{combinations.length}通り）</summary>
+            {openOperatorId === operator.id ? <div className="mt-2 border border-zinc-500/30 p-2 text-xs">
+              <p className="mb-2 font-semibold">狙えるタグ（{combinations.length}通り）</p>
               <ul className="space-y-2 border-l border-zinc-500/40 pl-2">
                 {combinations.map(combination => (
                   <li key={combination.id}>
@@ -31,7 +41,7 @@ export function OperatorCandidates({ candidates, hasSelection }: {
                   </li>
                 ))}
               </ul>
-            </details>
+            </div> : null}
           </article>
         ))}
       </div>
