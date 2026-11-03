@@ -44,12 +44,17 @@ export function SelectedTags({
           ) : (
             selectedTags.map((tag) => (
               <button
-                className="terminal-button terminal-button-selected px-3 py-1.5 text-sm font-semibold transition"
+                className="terminal-button terminal-button-selected group inline-flex min-h-10 items-center gap-3 pl-3 pr-2 text-sm font-semibold transition"
                 key={tag}
                 onClick={() => onRemoveTag(tag)}
                 type="button"
               >
-                {tag} x
+                <span>{tag}</span>
+                <span className="flex h-5 w-6 shrink-0 items-center justify-end border-l border-current/20 opacity-60 transition-opacity group-hover:opacity-100">
+                  <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className="h-4 w-4">
+                    <path d="m4.5 4.5 7 7m0-7-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                </span>
               </button>
             ))
           )}
