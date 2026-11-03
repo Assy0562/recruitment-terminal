@@ -5,7 +5,7 @@ import Link from "next/link";
 
 type OperatorCardProps = {
   operator: Operator;
-  reserveActionSpace?: boolean;
+  embedded?: boolean;
 };
 
 const rarityDotColor = {
@@ -17,7 +17,7 @@ const rarityDotColor = {
   6: "rgba(249, 115, 22, 0.9)"
 } satisfies Record<Operator["rarity"], string>;
 
-export function OperatorCard({ operator, reserveActionSpace = false }: OperatorCardProps) {
+export function OperatorCard({ operator, embedded = false }: OperatorCardProps) {
   const isHighRarity = operator.rarity >= 5;
   const visibleTags = operator.tags.slice(0, 4);
   const hiddenTagCount = operator.tags.length - visibleTags.length;
@@ -25,6 +25,7 @@ export function OperatorCard({ operator, reserveActionSpace = false }: OperatorC
   return (
     <Link
       className="group relative block min-w-0 overflow-hidden rounded-[2px] border border-[#afafaf] bg-[linear-gradient(180deg,rgba(228,228,228,0.96),rgba(214,214,214,0.93))] px-2.5 py-2 transition hover:border-cyan-700/45 focus:outline-none focus-visible:border-cyan-700 focus-visible:ring-2 focus-visible:ring-cyan-700/20 dark:border-zinc-800 dark:bg-[linear-gradient(180deg,rgba(24,24,27,0.96),rgba(9,9,11,0.98))] dark:hover:border-cyan-300/40 dark:focus-visible:border-cyan-300 dark:focus-visible:ring-cyan-300/25"
+      style={embedded ? { borderWidth: 0 } : undefined}
       href={`/operators/${operator.id}`}
     >
       <span
@@ -42,7 +43,7 @@ export function OperatorCard({ operator, reserveActionSpace = false }: OperatorC
         }}
       />
 
-      <div className={`relative flex min-w-0 items-center gap-2 ${reserveActionSpace ? "pr-12" : ""}`}>
+      <div className="relative flex min-w-0 items-center gap-2">
         <div className="flex min-w-0 items-center gap-2">
           <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-[2px] border border-[#afafaf] bg-[#f2f2f2] dark:border-zinc-700 dark:bg-zinc-900">
             <Image
