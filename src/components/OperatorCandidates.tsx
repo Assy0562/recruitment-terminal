@@ -24,7 +24,6 @@ export function OperatorCandidates({ candidates, hasSelection }: {
         {entries.map(({ operator, combinations }) => (
           <article key={operator.id} className="min-w-0 overflow-hidden rounded-[2px] border border-[#afafaf] dark:border-zinc-800">
             <OperatorCard operator={operator} embedded />
-            {operator.rarity === 6 ? <p className="px-2.5 pb-1 text-xs font-bold text-orange-700 dark:text-orange-300">上級エリート必須</p> : null}
             <button type="button" title="狙えるタグを開閉" aria-label={`${operator.name}のタグを開閉`}
               className="flex w-full items-center justify-center border-t border-zinc-500/20 py-1 text-zinc-500 transition hover:bg-zinc-500/10 hover:text-cyan-700 dark:hover:text-cyan-300"
               onClick={() => setOpenOperatorId(current => current === operator.id ? null : operator.id)}>
@@ -33,6 +32,7 @@ export function OperatorCandidates({ candidates, hasSelection }: {
               </svg>
             </button>
             {openOperatorId === operator.id ? <div className="border-t border-zinc-500/20 p-2 text-xs">
+              {operator.rarity === 6 ? <p className="mb-2 font-bold text-orange-700 dark:text-orange-300">上級エリート必須</p> : null}
               <p className="mb-2 font-semibold">狙えるタグ（{combinations.length}通り）</p>
               <ul className="space-y-2 border-l border-zinc-500/40 pl-2">
                 {combinations.map(combination => (
