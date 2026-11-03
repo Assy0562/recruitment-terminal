@@ -243,7 +243,7 @@ function CandidateCard({
         </div>
       </div>
 
-      <div className="mt-3 grid gap-2 md:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(230px,1fr))]">
+      <div className="mt-3 grid gap-2 md:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(230px,1fr))]">
         {visibleOperators.map((operator) => (
           <OperatorCard key={operator.id} operator={operator} />
         ))}
