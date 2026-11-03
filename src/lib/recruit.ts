@@ -127,3 +127,25 @@ function createCombinations(tags: string[], maxTagCount: number): string[][] {
 
   return combinations;
 }
+
+export type OperatorCandidate = {
+  operator: Operator;
+  combinations: TagCombinationCandidate[];
+};
+
+// Reuse the eligible combinations so the overview cannot broaden recruitment rules.
+export function getOperatorCandidates(candidates: TagCombinationCandidate[]): OperatorCandidate[] {
+  const byId = new Map<string, OperatorCandidate>();
+  for (const candidate of candidates) {
+    for (const operator of candidate.operators) {
+      const entry = byId.get(operator.id) ?? { operator, combinations: [] };
+      if (!entry.combinations.some(item => item.id === candidate.id)) {
+        entry.combinations.push(candidate);
+      }
+      byId.set(operator.id, entry);
+    }
+  }
+  return [...byId.values()].sort((a, b) =>
+    b.operator.rarity - a.operator.rarity || a.operator.name.localeCompare(b.operator.name, "ja")
+  );
+}

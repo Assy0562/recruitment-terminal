@@ -7,12 +7,14 @@ import tagCategoriesData from "@/data/tags.json";
 import { getTagCombinationCandidates } from "@/lib/recruit";
 import type { Operator, TagCategory } from "@/types/operator";
 import { CombinationCandidates } from "./CombinationCandidates";
+import { OperatorCandidates } from "./OperatorCandidates";
 import { SelectedTags } from "./SelectedTags";
 import { TagSelector } from "./TagSelector";
 
 const operators = operatorsData as Operator[];
 const tagCategories = tagCategoriesData as TagCategory[];
 const maxSelectedTags = 5;
+const resultViewStorageKey = "recruitment-terminal:result-view";
 const selectedTagsStorageKey = "recruitment-terminal:selected-tags";
 const validTags = new Set(tagCategories.flatMap((group) => group.tags));
 
@@ -29,12 +31,14 @@ function createSelectedTagsKey(selectedTags: string[]): string {
 
 export function RecruitmentApp() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [resultView, setResultView] = useState<"operators" | "combinations">("operators");
   const [hasRestoredSelection, setHasRestoredSelection] = useState(false);
 
   // sessionStorageはブラウザでしか使えないため、初回表示後に復元する。
   useEffect(() => {
     queueMicrotask(() => {
       setSelectedTags(getStoredSelectedTags());
+      setResultView(readStorage("sessionStorage", resultViewStorageKey) === "combinations" ? "combinations" : "operators");
       setHasRestoredSelection(true);
     });
   }, []);
@@ -58,6 +62,11 @@ export function RecruitmentApp() {
   const combinationCandidates = useMemo(() => {
     return getTagCombinationCandidates(operators, selectedTags);
   }, [selectedTags]);
+
+  function changeResultView(view: "operators" | "combinations") {
+    setResultView(view);
+    writeStorage("sessionStorage", resultViewStorageKey, view);
+  }
 
   function toggleTag(tag: string) {
     setSelectedTags((currentTags) =>
@@ -89,11 +98,22 @@ export function RecruitmentApp() {
           selectedTags={selectedTags}
         />
         {hasRestoredSelection ? (
-          <CombinationCandidates
-            candidates={combinationCandidates}
-            key={selectedTagsKey}
-            selectedTags={selectedTags}
-          />
+          <>
+            <div className="flex gap-2">
+              {([ ["operators", "キャラ一覧"], ["combinations", "タグの組み合わせ"] ] as const).map(([view, label]) => (
+                <button key={view} type="button" onClick={() => changeResultView(view)}
+                  className={`terminal-button px-3 py-2 text-sm font-bold ${resultView === view ? "terminal-button-selected" : ""}`}>
+                  {label}
+                </button>
+              ))}
+            </div>
+            <div hidden={resultView !== "operators"}>
+              <OperatorCandidates key={selectedTagsKey} candidates={combinationCandidates} hasSelection={selectedTags.length > 0} />
+            </div>
+            <div hidden={resultView !== "combinations"}>
+              <CombinationCandidates candidates={combinationCandidates} key={selectedTagsKey} selectedTags={selectedTags} />
+            </div>
+          </>
         ) : null}
       </div>
     </main>
